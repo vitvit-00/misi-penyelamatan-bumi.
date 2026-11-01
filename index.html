@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi Penyelamatan Bumi — Team Battle</title>
+<style>
+:root{--bg:#fff8e8;--panel:#ffffff;--ink:#25324a;--muted:#59677d;--a:#27a9e8;--b:#ff9f43;--good:#20b879;--bad:#f05270}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 8% 5%,#fff0a8 0,transparent 28%),radial-gradient(circle at 92% 10%,#ffd9e8 0,transparent 25%),linear-gradient(135deg,#e4f7ff,#fff8e8 55%,#e8ffe9);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);min-height:100vh}
+button,input{font:inherit}button{cursor:pointer;border:0;border-radius:13px;padding:11px 14px;font-weight:850;transition:transform .12s,filter .12s}button:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px)}button:disabled{cursor:default;opacity:.78}
+.app{max-width:1500px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#42d392,#36c5f0);font-size:28px}.kicker{font-size:.75rem;letter-spacing:.15em;color:#198d78;font-weight:950}h1{font-size:clamp(1.35rem,3vw,2.25rem);line-height:1.05;margin:3px 0}.subtitle{color:var(--muted);margin:5px 0 0}.tools{display:flex;gap:8px;flex-wrap:wrap}.tools button,.secondary{background:#e7f2ff;color:#25324a;border:1px solid #b7d5f5}
+.scoreboard{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:18px 0}.scorecard{border:2px solid #d8e7f6;border-radius:18px;padding:12px 16px;background:#ffffff;box-shadow:0 8px 22px #354e6b12;display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}.scorecard.blue{border-top:4px solid var(--a)}.scorecard.orange{border-top:4px solid var(--b)}.teamname{width:100%;min-width:0;max-width:250px;background:transparent;border:0;color:#25324a;font-weight:900;font-size:clamp(1rem,2vw,1.35rem);outline:none}.score{font-size:clamp(2rem,4vw,3.5rem);font-weight:1000;line-height:1;font-variant-numeric:tabular-nums}.pts{color:var(--muted);font-size:.75rem;font-weight:800}.vs{font-weight:1000;font-size:1.45rem;color:#f05a8a;text-shadow:0 2px 0 #fff}.roundbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:8px 2px 12px}.pill{display:inline-flex;padding:7px 11px;border:1px solid #c5dff3;border-radius:99px;color:#28628a;background:#ffffff;font-weight:900;font-size:.76rem;letter-spacing:.04em}.progress{height:9px;background:#d9eaf5;border-radius:99px;overflow:hidden;flex:1;min-width:100px}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--good));transition:width .25s}
+.intro{border:2px solid #ffe08a;border-radius:18px;background:#fffdf5;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:14px}.intro .earth{font-size:2.3rem}.intro p{margin:4px 0 0;color:var(--muted);line-height:1.45}
+.battle{display:grid;grid-template-columns:1fr 1fr;gap:14px}.battlecard{background:linear-gradient(160deg,#ffffff,#f8fcff);border:2px solid #cfe4f7;box-shadow:0 12px 28px #40587815;border-radius:22px;padding:18px;position:relative;overflow:hidden;min-width:0}.battlecard:before{content:"";position:absolute;top:0;left:0;right:0;height:5px}.battlecard.blue:before{background:var(--a)}.battlecard.orange:before{background:var(--b)}.teamhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}.teamtag{font-weight:950;font-size:1.1rem}.teamtag.blue{color:#1487c4}.teamtag.orange{color:#d87516}.status{font-size:.72rem;font-weight:900;padding:6px 9px;border-radius:99px;background:#edf5ff;color:#385875}.qcat{color:#6c55c8;font-size:.75rem;letter-spacing:.08em;font-weight:950} .timerline{display:flex;align-items:center;gap:10px;margin:8px 0 4px}.timerlabel{font-weight:950;color:#3b5470;font-size:.82rem;white-space:nowrap}.timerbar{height:10px;border-radius:99px;background:#e2edf6;overflow:hidden;flex:1}.timerbar span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#53d99b,#ffca55);transition:width .25s linear}.timerlabel.urgent{color:#df3657}.timerbar span.urgent{background:#f05270}
+.question{font-size:clamp(1.05rem,1.8vw,1.5rem);font-weight:850;line-height:1.35;margin:12px 0 16px;min-height:78px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:9px}.answer{display:flex;align-items:center;gap:9px;text-align:left;background:#f0f8ff;border:2px solid #d0e6f7;color:#25324a;min-height:64px;padding:10px;font-size:.92rem}.letter{display:grid;place-items:center;width:29px;height:29px;border-radius:9px;background:#d9efff;color:#245b86;flex-shrink:0}.answer.correct{background:#d9ffec;border:2px solid var(--good);color:#145b40}.answer.wrong{background:#ffe2e8;border:2px solid var(--bad);color:#8b253b}.answer:disabled{opacity:1}.feedback{min-height:46px;margin-top:12px;padding:10px 12px;border-radius:12px;background:#f1f6fb;color:#4d6076;font-weight:750;font-size:.9rem;line-height:1.35}.feedback.good{background:#d9ffec;color:#145b40}.feedback.bad{background:#ffe2e8;color:#8b253b}
+.controls{display:flex;gap:9px;flex-wrap:wrap;align-items:center;justify-content:space-between;background:#ffffff;border:2px solid #d8e7f6;border-radius:18px;padding:13px;margin-top:14px}.controls .note{color:var(--muted);font-size:.86rem;flex:1;min-width:220px}.primary{background:linear-gradient(135deg,#79e7ad,#41c9b4);color:#124638}.danger{background:#ffe0e6;color:#9b2943;border:1px solid #f4a5b5}
+.toast{position:fixed;left:50%;top:16%;transform:translate(-50%,-20px) scale(.8);opacity:0;pointer-events:none;z-index:20;background:#e0fff0;border:2px solid var(--good);color:#145b40;border-radius:24px;padding:20px 30px;text-align:center;box-shadow:0 18px 60px #0008;transition:all .22s;min-width:250px}.toast.show{opacity:1;transform:translate(-50%,0) scale(1)}.toast .big{font-size:2.5rem;font-weight:1000}.toast .small{font-weight:900;font-size:1.05rem}
+.overlay{position:fixed;inset:0;background:#283c5acc;display:grid;place-items:center;padding:18px;z-index:30}.hidden{display:none!important}.modal{max-width:600px;width:100%;background:#ffffff;border:2px solid #c5dff3;border-radius:24px;padding:24px;max-height:90vh;overflow:auto}.modal h2{margin-top:0}.modal label{display:block;margin:14px 0 6px;color:#59677d;font-weight:700}.modal input{width:100%;padding:12px;border-radius:12px;border:1px solid #b7d5f5;background:#f7fbff;color:#25324a}.actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:20px}.winner{text-align:center}.winner .trophy{font-size:4rem}.winner h2{font-size:2rem}.finalscores{display:flex;justify-content:center;gap:22px;font-weight:900;font-size:1.2rem;flex-wrap:wrap}
+@media(max-width:850px){.battle{grid-template-columns:1fr}.question{min-height:0}.scoreboard{grid-template-columns:1fr auto 1fr}.answers{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.app{padding:10px}.scorecard{padding:10px}.battlecard{padding:13px}.answers{grid-template-columns:1fr}.answer{min-height:52px}.intro{align-items:flex-start}.scoreboard{gap:6px}}
+</style></head>
+<body><main class="app">
+<header class="top"><div class="brand"><div class="logo">🌍</div><div><div class="kicker">GAME BATTLE • BAHASA INDONESIA KELAS VI</div><h1>Misi Penyelamatan Bumi</h1><p class="subtitle">Dua tim, dua pertanyaan berbeda, kesempatan dan tingkat kesulitan setara!</p></div></div><div class="tools"><button id="settingsBtn">⚙️ Atur tim</button><button id="fullscreenBtn">⛶ Layar penuh</button></div></header>
+<section class="scoreboard">
+ <div class="scorecard blue"><div style="min-width:0;flex:1"><input class="teamname" id="nameA" value="TIM HIJAU" aria-label="Nama tim kiri"><div class="pts">POIN TIM</div></div><div class="score" id="scoreA">0</div></div>
+ <div class="vs">VS</div>
+ <div class="scorecard orange"><div style="min-width:0;flex:1"><input class="teamname" id="nameB" value="TIM BUMI" aria-label="Nama tim kanan"><div class="pts">POIN TIM</div></div><div class="score" id="scoreB">0</div></div>
+</section>
+<div class="roundbar"><span class="pill" id="roundLabel">RONDE 1 DARI 10</span><div class="progress"><span id="progressBar"></span></div><span class="pill">JAWAB BENAR = +10 POIN</span></div>
+<section class="intro"><div class="earth">🕵️‍♀️</div><div><strong>Misi tim hari ini: selamatkan bumi dengan pengetahuan!</strong><p>Setiap ronde, kedua tim mendapat pertanyaan berbeda dengan materi dan tingkat kesulitan yang sepadan. Jawab sebelum waktu habis: soal mudah 10 detik, soal menantang 15 detik. Jawaban benar mendapat +10 poin!</p></div></section>
+<section class="battle">
+ <article class="battlecard blue"><div class="teamhead"><div class="teamtag blue">🔵 <span id="labelA">TIM HIJAU</span></div><span class="status" id="statusA">SIAP BERTANDING</span></div><div class="qcat" id="catA"></div><div class="timerline"><span class="timerlabel" id="timerLabelA">⏱️ 10 detik</span><div class="timerbar"><span id="timerBarA"></span></div></div><div class="question" id="questionA"></div><div class="answers" id="answersA"></div><div class="feedback" id="feedbackA" aria-live="polite">Diskusikan dengan tim, lalu pilih satu jawaban.</div></article>
+ <article class="battlecard orange"><div class="teamhead"><div class="teamtag orange">🟠 <span id="labelB">TIM BUMI</span></div><span class="status" id="statusB">SIAP BERTANDING</span></div><div class="qcat" id="catB"></div><div class="timerline"><span class="timerlabel" id="timerLabelB">⏱️ 10 detik</span><div class="timerbar"><span id="timerBarB"></span></div></div><div class="question" id="questionB"></div><div class="answers" id="answersB"></div><div class="feedback" id="feedbackB" aria-live="polite">Diskusikan dengan tim, lalu pilih satu jawaban.</div></article>
+</section>
+<section class="controls"><div class="note"><strong>Aturan battle:</strong> kedua tim menjawab pertanyaan masing-masing. Jawaban benar langsung mendapat +10 poin. Jawaban salah tidak mendapat poin; jawaban tidak bisa diubah setelah dipilih.</div><div class="tools"><button class="secondary" id="prevBtn">← Ronde sebelumnya</button><button class="primary" id="nextBtn">Ronde berikutnya →</button><button class="danger" id="resetBtn">↻ Reset game</button></div></section>
+</main>
+<div class="toast" id="toast"><div class="big">+10</div><div class="small">POIN!</div><div id="toastTeam"></div></div>
+<div class="overlay hidden" id="settingsOverlay"><div class="modal"><h2>⚙️ Pengaturan Tim</h2><p style="color:#b5c7d9">Ganti nama tim sebelum atau selama permainan.</p><label for="editA">Nama tim kiri</label><input id="editA" maxlength="24" value="TIM HIJAU"><label for="editB">Nama tim kanan</label><input id="editB" maxlength="24" value="TIM BUMI"><div class="actions"><button class="secondary" id="cancelSettings">Batal</button><button class="primary" id="saveSettings">Simpan</button></div></div></div>
+<div class="overlay hidden" id="endOverlay"><div class="modal winner"><div class="trophy">🏆</div><h2 id="winnerTitle">Pertandingan selesai!</h2><p id="winnerText"></p><div class="finalscores" id="finalScores"></div><div class="actions" style="justify-content:center"><button class="secondary" id="closeEnd">Lihat papan skor</button><button class="primary" id="playAgain">Main lagi</button></div></div></div>
+<script>
+const rounds=[
+{cat:"PENGERTIAN TEKS EKSPLANASI",A:{level:"Mudah",time:10,q:"Apa tujuan utama teks eksplanasi?",a:["Menghibur dengan cerita khayalan","Menjelaskan proses terjadinya suatu fenomena","Mengajak pembaca membeli barang","Menggambarkan tokoh secara rinci"],c:1,why:"Teks eksplanasi menjelaskan bagaimana atau mengapa suatu fenomena terjadi."},B:{level:"Mudah",time:10,q:"Teks eksplanasi biasanya membahas ...",a:["Langkah membuat kerajinan saja","Pengalaman pribadi penulis","Proses atau sebab-akibat suatu fenomena","Percakapan antartokoh khayalan"],c:2,why:"Teks eksplanasi membahas fenomena alam, sosial, atau kejadian yang dapat dijelaskan."}},
+{cat:"STRUKTUR TEKS",A:{level:"Mudah",time:10,q:"Bagian yang mengenalkan fenomena secara umum disebut ...",a:["Pernyataan umum","Deretan penjelas","Daftar pustaka","Dialog"],c:0,why:"Pernyataan umum mengenalkan fenomena yang akan dibahas."},B:{level:"Mudah",time:10,q:"Bagian yang menjelaskan urutan proses dan hubungan sebab-akibat adalah ...",a:["Judul","Deretan penjelas","Salam pembuka","Identitas penulis"],c:1,why:"Deretan penjelas menguraikan proses terjadinya fenomena."}},
+{cat:"STRUKTUR TEKS",A:{level:"Menantang",time:15,q:"Bacalah: “Hujan adalah peristiwa jatuhnya titik-titik air dari awan ke permukaan bumi.” Kalimat tersebut paling tepat menjadi bagian ...",a:["Deretan penjelas","Interpretasi pribadi","Pernyataan umum","Daftar istilah"],c:2,why:"Kalimat tersebut memperkenalkan pengertian fenomena secara umum."},B:{level:"Menantang",time:15,q:"Dalam teks eksplanasi, bagian penutup yang berisi rangkuman atau komentar tentang fenomena sering disebut ...",a:["Orientasi tokoh","Deretan dialog","Pernyataan masalah","Interpretasi atau penutup"],c:3,why:"Interpretasi dapat berisi simpulan atau komentar akhir terkait fenomena."}},
+{cat:"SEBAB DAN AKIBAT",A:{level:"Mudah",time:10,q:"Sampah menyumbat selokan. Ketika hujan deras, akibat yang mungkin terjadi adalah ...",a:["Air mengalir lebih cepat","Risiko genangan atau banjir meningkat","Hujan berhenti seketika","Sampah berubah menjadi tanah"],c:1,why:"Sumbatan menghambat aliran air sehingga air dapat meluap."},B:{level:"Mudah",time:10,q:"Asap kendaraan yang berlebihan dapat menyebabkan ...",a:["Udara menjadi lebih bersih","Semua awan menghilang","Pencemaran udara meningkat","Sungai menjadi lebih dalam"],c:2,why:"Asap kendaraan mengandung zat yang mencemari udara."}},
+{cat:"KATA HUBUNG",A:{level:"Mudah",time:10,q:"Kata hubung yang menunjukkan penyebab adalah ...",a:["Karena","Namun","Kemudian","Sementara"],c:0,why:"Kata 'karena' memperkenalkan alasan atau penyebab."},B:{level:"Mudah",time:10,q:"Kalimat “Hujan turun terus-menerus, ... sungai meluap” paling tepat dilengkapi dengan ...",a:["meskipun","sehingga","tetapi","walaupun"],c:1,why:"'Sehingga' menghubungkan kejadian dengan akibatnya."}},
+{cat:"URUTAN PROSES",A:{level:"Menantang",time:15,q:"Urutan sederhana proses terjadinya hujan yang tepat adalah ...",a:["Air menguap, uap mengembun membentuk awan, lalu turun sebagai hujan","Hujan turun, matahari padam, lalu air menghilang","Awan menjadi tanah, lalu air menguap","Angin berhenti, lalu laut berubah menjadi awan"],c:0,why:"Panas matahari menyebabkan penguapan; uap air mengembun menjadi awan dan dapat jatuh sebagai hujan."},B:{level:"Menantang",time:15,q:"Secara sederhana, gempa akibat pergeseran lempeng terjadi ketika ...",a:["Awan bertabrakan di langit","Air laut menguap","Pohon tumbang karena angin","Energi dari pergerakan batuan dilepaskan dan mengguncang permukaan bumi"],c:3,why:"Pelepasan energi akibat pergerakan batuan dapat menimbulkan getaran di permukaan bumi."}},
+{cat:"CIRI KEBAHASAAN",A:{level:"Menantang",time:15,q:"Kalimat manakah yang menggunakan istilah teknis sesuai topik gunung meletus?",a:["Gunung itu sangat menakutkan bagiku.","Magma dapat naik melalui saluran vulkanik.","Aku melihat gunung saat liburan.","Pemandangannya bagus sekali."],c:1,why:"'Magma' dan 'saluran vulkanik' merupakan istilah yang berkaitan dengan aktivitas gunung api."},B:{level:"Menantang",time:15,q:"Kalimat yang paling objektif untuk teks eksplanasi adalah ...",a:["Banjir adalah kejadian paling menyebalkan!","Aku sangat takut saat hujan.","Banjir dapat terjadi ketika air meluap dan menggenangi daratan.","Menurutku hujan tidak menyenangkan."],c:2,why:"Kalimat objektif menyampaikan informasi yang dapat dijelaskan, bukan sekadar perasaan pribadi."}},
+{cat:"ANALISIS FENOMENA",A:{level:"Menantang",time:15,q:"Mengapa penebangan pohon berlebihan di lereng dapat meningkatkan risiko longsor?",a:["Akar pohon membantu mengikat tanah","Pohon membuat tanah selalu kering","Daun menghentikan semua hujan","Pohon menyebabkan batu menghilang"],c:0,why:"Akar membantu menjaga kestabilan tanah; jika pohon berkurang, tanah lebih mudah bergerak."},B:{level:"Menantang",time:15,q:"Mengapa sampah plastik dapat menjadi masalah lingkungan dalam jangka panjang?",a:["Plastik selalu larut dalam satu hari","Plastik dapat sulit terurai secara alami","Plastik membuat semua tanaman tumbuh cepat","Plastik berubah menjadi air hujan"],c:1,why:"Banyak jenis plastik membutuhkan waktu sangat lama untuk terurai."}},
+{cat:"INFORMASI DAN KESIMPULAN",A:{level:"Menantang",time:15,q:"Teks menjelaskan bahwa hujan deras dan saluran tersumbat membuat air meluap. Simpulan yang paling sesuai adalah ...",a:["Semua hujan pasti menyebabkan banjir","Saluran air tidak memiliki fungsi","Sumbatan saluran dapat memperbesar risiko banjir saat hujan deras","Banjir hanya terjadi di laut"],c:2,why:"Simpulan harus sesuai dengan informasi yang dijelaskan dalam teks."},B:{level:"Menantang",time:15,q:"Apa yang sebaiknya dilakukan saat menyusun simpulan teks eksplanasi?",a:["Menambahkan cerita khayalan","Mengulang semua kalimat tanpa memilih informasi","Memasukkan pendapat yang tidak berkaitan","Merangkum gagasan utama berdasarkan penjelasan dalam teks"],c:3,why:"Simpulan merangkum informasi utama tanpa menambahkan hal yang tidak didukung teks."}},
+{cat:"MENYUSUN TEKS EKSPLANASI",A:{level:"Menantang",time:15,q:"Setelah menulis pernyataan umum tentang banjir, informasi yang paling tepat ditulis pada deretan penjelas adalah ...",a:["Urutan penyebab dan proses air meluap","Tokoh utama dan wataknya","Percakapan imajinatif","Daftar makanan kesukaan"],c:0,why:"Deretan penjelas menguraikan penyebab atau proses fenomena secara runtut."},B:{level:"Menantang",time:15,q:"Kalimat manakah yang paling tepat sebagai bagian teks eksplanasi tentang kebakaran hutan?",a:["Aku suka warna daun yang hijau.","Kebakaran hutan dapat meluas saat vegetasi kering dan cuaca panas mendukung penyebaran api.","Wah, hutannya keren sekali!","Pada suatu hari, seekor kelinci berbicara."],c:1,why:"Kalimat tersebut memberi penjelasan faktual mengenai kondisi yang dapat mendukung penyebaran kebakaran."}}
+];
+let round=0, scores={A:0,B:0}, responses={}, toastTimer;
+let remaining={A:0,B:0}, timerIds={A:null,B:null}, timerRound=-1;
+const $=id=>document.getElementById(id);
+function clearTimers(){['A','B'].forEach(t=>{if(timerIds[t])clearInterval(timerIds[t]);timerIds[t]=null;});}
+function updateTimer(team){
+ const q=rounds[round][team], label=$(`timerLabel${team}`), bar=$(`timerBar${team}`);
+ const max=q.time, val=Math.max(0,remaining[team]);
+ label.textContent=`⏱️ ${val} detik • ${q.level}`;
+ label.classList.toggle('urgent',val<=3);
+ bar.style.width=`${(val/max)*100}%`;
+ bar.classList.toggle('urgent',val<=3);
+}
+function startRoundTimers(){
+ clearTimers();timerRound=round;
+ ['A','B'].forEach(team=>{
+   const key=`${round}-${team}`;
+   if(responses[key]){remaining[team]=0;updateTimer(team);return;}
+   remaining[team]=rounds[round][team].time;updateTimer(team);
+   timerIds[team]=setInterval(()=>{
+     if(responses[key]){clearInterval(timerIds[team]);timerIds[team]=null;return;}
+     remaining[team]=Math.max(0,remaining[team]-1);updateTimer(team);
+     if(remaining[team]<=0){
+       clearInterval(timerIds[team]);timerIds[team]=null;
+       responses[key]={choice:-1,correct:false,timeout:true};
+       render();
+     }
+   },1000);
+ });
+}
+function render(){
+ const data=rounds[round];
+ $('scoreA').textContent=scores.A;$('scoreB').textContent=scores.B;
+ $('labelA').textContent=$('nameA').value;$('labelB').textContent=$('nameB').value;
+ $('roundLabel').textContent=`RONDE ${round+1} DARI ${rounds.length}`;
+ $('progressBar').style.width=`${(round+1)/rounds.length*100}%`;
+ ['A','B'].forEach(team=>{
+   const q=data[team],resp=responses[`${round}-${team}`];
+   $(`cat${team}`).textContent=`${data.cat} • ${q.level.toUpperCase()}`;
+   $(`question${team}`).textContent=q.q;
+   $(`status${team}`).textContent=resp?(resp.correct?'✓ MISI BERHASIL':resp.timeout?'⏰ WAKTU HABIS':'MISI BELUM BERHASIL'):'SIAP BERTANDING';
+   const box=$(`answers${team}`);box.innerHTML='';
+   q.a.forEach((ans,i)=>{
+     const btn=document.createElement('button');btn.className='answer';
+     btn.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span>${ans}</span>`;
+     if(resp){btn.disabled=true;if(i===q.c)btn.classList.add('correct');else if(i===resp.choice)btn.classList.add('wrong');}
+     btn.onclick=()=>answer(team,i);box.appendChild(btn);
+   });
+   const fb=$(`feedback${team}`);fb.className='feedback';
+   if(resp){
+     fb.classList.add(resp.correct?'good':'bad');
+     fb.textContent=resp.correct?`✓ BENAR! +10 POIN untuk ${$('name'+team).value}. ${q.why}`:resp.timeout?`⏰ Waktu habis! +0 poin. Jawaban yang tepat: ${q.a[q.c]}. ${q.why}`:`✕ Belum tepat. +0 poin. Jawaban yang tepat: ${q.a[q.c]}. ${q.why}`;
+   } else fb.textContent='Diskusikan dengan tim, lalu pilih satu jawaban sebelum waktu habis.';
+   updateTimer(team);
+ });
+ $('prevBtn').disabled=round===0;
+ $('nextBtn').textContent=round===rounds.length-1?'Lihat hasil akhir 🏆':'Ronde berikutnya →';
+}
+function answer(team,choice){
+ const key=`${round}-${team}`;if(responses[key])return;
+ const q=rounds[round][team],correct=choice===q.c;
+ responses[key]={choice,correct,timeout:false};
+ if(timerIds[team]){clearInterval(timerIds[team]);timerIds[team]=null;}
+ if(correct){scores[team]+=10;showToast(team);}
+ render();
+}
+function showToast(team){
+ const t=$('toast');$('toastTeam').textContent=`${$('name'+team).value} mendapatkan 10 poin!`;
+ t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1500);
+}
+function goToRound(next){
+ round=next;startRoundTimers();render();
+}
+$('prevBtn').onclick=()=>{if(round>0)goToRound(round-1)};
+$('nextBtn').onclick=()=>{
+ if(round<rounds.length-1)goToRound(round+1);
+ else{
+   clearTimers();
+   let title=scores.A===scores.B?'SERI! KEDUA TIM HEBAT!':scores.A>scores.B?`${$('nameA').value} MENANG!`:`${$('nameB').value} MENANG!`;
+   $('winnerTitle').textContent=title;
+   $('winnerText').textContent='Semua 10 ronde selesai. Teruslah menjadi penyelamat bumi dengan memahami informasi dan menjelaskan fenomena secara tepat!';
+   $('finalScores').innerHTML=`<span>🔵 ${$('nameA').value}: ${scores.A}</span><span>🟠 ${$('nameB').value}: ${scores.B}</span>`;
+   $('endOverlay').classList.remove('hidden');
+ }
+};
+$('resetBtn').onclick=()=>{if(confirm('Yakin ingin menghapus semua skor dan mengulang game?')){clearTimers();round=0;scores={A:0,B:0};responses={};startRoundTimers();render()}};
+$('settingsBtn').onclick=()=>{$('editA').value=$('nameA').value;$('editB').value=$('nameB').value;$('settingsOverlay').classList.remove('hidden')};
+$('cancelSettings').onclick=()=>$('settingsOverlay').classList.add('hidden');
+$('saveSettings').onclick=()=>{$('nameA').value=$('editA').value.trim()||'TIM HIJAU';$('nameB').value=$('editB').value.trim()||'TIM BUMI';$('settingsOverlay').classList.add('hidden');render()};
+$('fullscreenBtn').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};
+$('closeEnd').onclick=()=>$('endOverlay').classList.add('hidden');
+$('playAgain').onclick=()=>{$('endOverlay').classList.add('hidden');clearTimers();round=0;scores={A:0,B:0};responses={};startRoundTimers();render()};
+startRoundTimers();
+render();
+</script></body></html>
